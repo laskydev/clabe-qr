@@ -1,11 +1,11 @@
 import {users} from "../../data/data";
 import type {User} from "../../data/data";
 import type {GetStaticPropsContext} from "next";
-import {BiCopy} from "react-icons/Bi";
+import {BiCopy} from "react-icons/bi";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {toast, ToastContainer} from "react-toastify";
 import Image from "next/image";
-import {BsWhatsapp} from "react-icons/Bs";
+import {BsWhatsapp} from "react-icons/bs";
 
 export function getStaticPaths() {
   const paths = users.map((_user) => {
