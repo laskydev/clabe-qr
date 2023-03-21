@@ -6,7 +6,7 @@ export const users: User[] = [
         clabe: '0321800001183597',
         path: 'cafeteria-clabe',
         whatsapp: '8343040283',
-        banco: 'STP'
+        banco: 'BANSEFI'
     }
 ]
 
