@@ -36,7 +36,8 @@ export class User {
     try {
       //Validacion de usuario repetido
       const isNewUser = await this.isNewUser();
-      if (!isNewUser) return {error: true, message: "El email ya se encuentra registrado"};
+      if (!isNewUser)
+        return {error: true, message: "El email ya se encuentra registrado"};
 
       // Hasheo de la password
       const hashedPassword = await this.encryptPassword(password);
@@ -70,7 +71,7 @@ export class User {
       const encryptedPassword = userDoc.data().password;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
       const match = await bcrypt.compare(passwordPlain, encryptedPassword);
-      return match as boolean
+      return match as boolean;
     } else {
       throw new Error(`No se encontró el usuario con email: ${this.email}`);
     }
@@ -81,28 +82,26 @@ export class User {
     const userDoc = await getDoc(userDocRef);
     if (userDoc.exists()) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const userData = userDoc.data()
-      this.name = userData.name as string
-      this.dateSignup = userData.dateSignup as string
-      this.lastConnect = userData.lastConnect as string
+      const userData = userDoc.data();
+      this.name = userData.name as string;
+      this.dateSignup = userData.dateSignup as string;
+      this.lastConnect = userData.lastConnect as string;
 
       return {
         email: this.email,
-        name: this.name
-      }
-
+        name: this.name,
+      };
     } else {
       return {
         error: true,
-        message: 'El usuario no se encuentra registrado'
-      }
+        message: "El usuario no se encuentra registrado",
+      };
     }
   }
 
   private async encryptPassword(password: string) {
     const saltRounds = 10;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-    const hashedPassword = (await bcrypt.hash(password, saltRounds)) as string;
-    return hashedPassword;
+    return await bcrypt.hash(password, saltRounds) as string
   }
 }

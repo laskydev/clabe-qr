@@ -13,7 +13,7 @@ export const authOptions = {
                 email: {label: "Email", type: "text", placeholder: "jsmith@gmail.com"},
                 password: {label: "Password", type: "password"}
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 if (!credentials?.email && !credentials?.password)
                     return null
 
@@ -21,14 +21,16 @@ export const authOptions = {
                 const isCorrectCredentials = await user.verifyPassword(credentials.password)
 
                 if (isCorrectCredentials) {
-                    return user
+                    return {
+                        id: '' //Fixear typescript error
+                    }
                 }
                 return null
             }
         })
     ],
     callbacks: {
-        async session({session, token, user}: any) {
+        async session({session, token}: { session: any, token: any }) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
             session.accessToken = token.accessToken
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
